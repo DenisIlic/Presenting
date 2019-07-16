@@ -50,6 +50,21 @@
 			array_push($errors, "The two passwords do not match");
 		}
 
+		// Check Database if Username AND E-Mail already exist
+		$user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
+		$result = mysqli_query($db, $user_check_query);
+		$user = mysqli_fetch_assoc($result);
+
+		if ($user) { // if User exists
+			if ($user['username'] ===$username) {
+				array_push($errors, "Username is already taken");
+			}
+
+			if($user['email'] === $email){ // if E-Mail exists
+				array_push($errors, "Email already exists");
+			}
+		}
+		
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
 			$password = md5($password_1);//encrypt the password before saving in the database
@@ -63,7 +78,7 @@
 				header('location: home.php');
 			}else{
 				$query = "INSERT INTO users (username, email, user_type, password) 
-						  VALUES('$username', '$email', 'user', '$password')";
+						  VALUES('$username', '$email', '$user', '$password')";
 				mysqli_query($db, $query);
 
 				// get id of the created user
@@ -77,6 +92,7 @@
 		}
 
 	}
+
 
 	// return user array from their id
 	function getUserById($id){

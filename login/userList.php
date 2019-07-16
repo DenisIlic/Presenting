@@ -10,10 +10,76 @@
 					<title>User Panel</title>
 					<link rel="stylesheet" type="text/css" href="css/style1.css">
 					<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<style type="text/css">
+    body{
+        font-family: Arail, sans-serif;
+    }
+    /* Formatting search box */
+    .search-box{
+        width: 300px;
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+    }
+    .search-box input[type="text"]{
+        height: 32px;
+        padding: 5px 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+    }
+    .result{
+        position: absolute;        
+        z-index: 999;
+        top: 100%;
+        left: 0;
+    }
+    .search-box input[type="text"], .result{
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Formatting result items */
+    .result p{
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid #CCCCCC;
+        border-top: none;
+        cursor: pointer;
+    }
+    .result p:hover{
+        background: #f2f2f2;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var inputVal = $(this).val();
+        var resultDropdown = $(this).siblings(".result");
+        if(inputVal.length){
+            $.get("backend-search.php", {term: inputVal}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+            });
+        } else{
+            resultDropdown.empty();
+        }
+    });
+    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        $(this).parent(".result").empty();
+    });
+});
+</script>
 </head>
 <body>
+	
+	
 
-	<table>
+<table>	
 	<thead>
 		<tr>
 			<th>Title</th>
@@ -22,10 +88,12 @@
 			<th>Author</th>
 			<th>Published IN</th>
 			<th>Publisher</th>
-			<th>Action</th>
 		</tr>
 	</thead>
-	<a href="index.php">Go Back</a>
+	<div class="search-box">
+        <input type="text" autocomplete="off" placeholder="Search Title" />
+        <div class="result"></div>
+    </div>
 
 	<?php 
 		while($rows=mysqli_fetch_assoc($result))
@@ -44,7 +112,7 @@
 
 	?>
 
-
+		<a class="btn" href="http://localhost/Login/index.php">Go Back</a>
 
 	
 

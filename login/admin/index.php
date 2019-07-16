@@ -105,7 +105,7 @@ if (isset($_GET['edit'])) {
 <?php else: ?>
 	<button class="btn" type="submit" name="save" >Save</button>
 <?php endif ?>
-			<a href="../admin/home.php">Go Back</a>
+			<a class="btn" href="http://localhost/Login/admin/home.php">Go Back</a>
 		</div>
 	</form>
 </body>

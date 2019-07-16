@@ -7,7 +7,7 @@ include('../functions.php');
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Registration system PHP and MySQL - Create user</title>
+	<title>Admin Panel</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<style>
 		.header {
@@ -20,7 +20,7 @@ include('../functions.php');
 </head>
 <body>
 	<div class="header">
-		<h2>Admin - create user</h2>
+		<h2>Admin Panel</h2>
 	</div>
 	
 	<form method="post" action="create_user.php">

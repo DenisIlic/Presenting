@@ -1,4 +1,5 @@
 <?php include('functions.php') ?>
+<?php include('register_check.php') ?>
 <!DOCTYPE html>
 <html>
 <head>

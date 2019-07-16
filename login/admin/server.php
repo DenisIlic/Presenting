@@ -14,7 +14,7 @@ error_reporting(0);
 	$update = false;
 
 	if (isset($_POST['save'])) {
-		$Book_type = $_POST['Book_title'];
+		$Book_title = $_POST['Book_title'];
 		$Book_desc = $_POST['Book_desc'];
 		$Book_type = $_POST['Book_type'];
 		$Book_author = $_POST['Book_author'];
